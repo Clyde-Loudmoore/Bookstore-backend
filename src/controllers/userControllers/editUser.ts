@@ -17,7 +17,6 @@ type ResponseType = {
 type BodyType = {
   fullName: string;
   email: string;
-  dateOfBirth: Date;
 };
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
@@ -30,7 +29,6 @@ export const editUser: HandlerType = async (req, res, next) => {
 
     req.user.fullName = req.body.fullName;
     req.user.email = req.body.email;
-    req.user.dateOfBirth = req.body.dateOfBirth;
 
     await db.user.save(req.user);
 

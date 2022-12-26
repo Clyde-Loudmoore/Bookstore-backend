@@ -13,9 +13,6 @@ class User {
 
   @Column({ type: 'varchar', nullable: false, select: false })
   password: string;
-
-  @Column({ type: 'date', nullable: true })
-  dateOfBirth: Date | string;
 }
 
 export default User;

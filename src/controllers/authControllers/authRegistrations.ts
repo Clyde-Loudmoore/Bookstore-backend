@@ -31,7 +31,6 @@ export const register: HandlerType = async (req, res, next) => {
     user.fullName = req.body.fullName;
     user.email = req.body.email;
     user.password = hashPassword;
-    user.dateOfBirth = new Date(req.body.dateOfBirth);
 
     const newUser = await db.user.save(user);
     delete newUser.password;
