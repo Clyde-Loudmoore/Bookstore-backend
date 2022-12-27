@@ -20,26 +20,25 @@ type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>
 export const register: HandlerType = async (req, res, next) => {
   try {
     const exitingUser = await db.user.findOne({ where: { email: req.body.email } });
-
+    
     if (exitingUser) {
       throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED);
     }
-
+    
     const hashPassword = await hashedPassword.hashedPass(req.body.password);
-
+    
     const user = new User();
-    user.fullName = req.body.fullName;
     user.email = req.body.email;
     user.password = hashPassword;
-
+    
     const newUser = await db.user.save(user);
     delete newUser.password;
-
+    
     const token = generateToken.generateAccessToken(user.id);
 
     res.status(StatusCodes.CREATED)
       .json({ newUser, token, message: successMessage.REGISTRATION_SUCCESS });
-  } catch (err) {
-    next(err);
+    } catch (err) {
+      next(err);
   }
 };

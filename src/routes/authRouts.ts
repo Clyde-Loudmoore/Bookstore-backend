@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/comma-dangle */
-import { clear } from 'console';
 import express from 'express';
 
 import authController from '../controllers/authControllers';
@@ -10,7 +9,14 @@ const routes = express.Router();
 
 routes.get('/me', authController.getUser);
 
-routes.post('/register', createValidationMiddleware(user.registration), authController.register);
-routes.post('/login', createValidationMiddleware(user.login), authController.login);
+routes.post('/register', 
+createValidationMiddleware(user.registration),
+authController.register);
+
+
+
+routes.post('/login', 
+createValidationMiddleware(user.login), 
+authController.login);
 
 export default routes;

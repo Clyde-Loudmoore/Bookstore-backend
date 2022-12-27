@@ -21,6 +21,7 @@ const config = {
   },
   port: mainConfig.SERVER_PORT,
   currentUrl: mainConfig.CURRENT_URL,
+  clientUrl: mainConfig.CLIENT_APP_URL,
   token: {
     secretKey: mainConfig.TOKEN_SECRET,
     expiresIn: mainConfig.TOKEN_AUTH_EXPIRATION,

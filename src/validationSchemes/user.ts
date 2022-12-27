@@ -18,7 +18,6 @@ const sharedValidation = {
 
 const registration = {
   body: {
-    fullName: sharedValidation.fullName,
     email: sharedValidation.requiredEmail,
     password: sharedValidation.requiredPassword,
   },
