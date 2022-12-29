@@ -6,7 +6,6 @@ import type User from '../../db/entities/User';
 import db from '../../db';
 import hashedPassword from '../../utils/hashedPassword';
 import generateToken from '../../utils/generateToken';
-import successMessage from '../../utils/successMessages';
 import errorsMessage from '../../utils/errorsMessages';
 import CustomError from '../../utils/customErrors';
 
@@ -19,12 +18,12 @@ type QueryType = Record<string, never>;
 type ResponseType = {
   user: User;
   token: string;
-  message: string;
+  message?: string;
 };
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
-export const login: HandlerType = async (req, res, next) => {
+export const singIn: HandlerType = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -47,7 +46,7 @@ export const login: HandlerType = async (req, res, next) => {
 
     delete user.password;
 
-    res.status(StatusCodes.CREATED).json({ user, token, message: successMessage.LOGIN_SUCCESS });
+    res.status(StatusCodes.CREATED).json({ user, token });
   } catch (err) {
     next(err);
   }

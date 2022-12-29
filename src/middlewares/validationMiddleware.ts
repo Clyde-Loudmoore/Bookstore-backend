@@ -30,7 +30,7 @@ type ErrorType = {
 };
 
 const createValidationMiddleware = (schema: SchemaType) => {
-  const validationMiddleware: Handler = async (req, _res, next) => {    
+  const validationMiddleware: Handler = async (req, _res, next) => {
     try {
       const errors: Array<{
         path: string;
@@ -83,7 +83,6 @@ const createValidationMiddleware = (schema: SchemaType) => {
       if (errors.length) {
         throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.USER_ERRORS, errors);
       }
-      console.log('req.body');
       next();
     } catch (err) {
       next(err);

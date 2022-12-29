@@ -17,7 +17,7 @@ type ResponseType = { message?: string; newUser?: User; token?: string };
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
-export const register: HandlerType = async (req, res, next) => {
+export const singUp: HandlerType = async (req, res, next) => {
   try {
     const exitingUser = await db.user.findOne({ where: { email: req.body.email } });
     
@@ -37,7 +37,7 @@ export const register: HandlerType = async (req, res, next) => {
     const token = generateToken.generateAccessToken(user.id);
 
     res.status(StatusCodes.CREATED)
-      .json({ newUser, token, message: successMessage.REGISTRATION_SUCCESS });
+      .json({ newUser, token });
     } catch (err) {
       next(err);
   }

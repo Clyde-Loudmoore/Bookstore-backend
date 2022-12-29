@@ -1,5 +1,5 @@
-import { register } from './authRegistrations';
-import { login } from './authLogin';
+import { singUp } from './authSingUp';
+import { singIn } from './authSingIn';
 import { getUser } from './getUser';
 
-export default { register, login, getUser };
+export default { singUp, singIn, getUser };

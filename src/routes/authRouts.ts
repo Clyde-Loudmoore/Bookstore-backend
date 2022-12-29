@@ -9,14 +9,7 @@ const routes = express.Router();
 
 routes.get('/me', authController.getUser);
 
-routes.post('/register', 
-createValidationMiddleware(user.registration),
-authController.register);
-
-
-
-routes.post('/login', 
-createValidationMiddleware(user.login), 
-authController.login);
+routes.post('/sing-up', createValidationMiddleware(user.singUp), authController.singUp);
+routes.post('/sing-in', createValidationMiddleware(user.singIn), authController.singIn);
 
 export default routes;

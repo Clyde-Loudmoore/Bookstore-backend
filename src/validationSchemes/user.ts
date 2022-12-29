@@ -16,14 +16,14 @@ const sharedValidation = {
   requiredPasswordLog,
 };
 
-const registration = {
+const singUp = {
   body: {
     email: sharedValidation.requiredEmail,
     password: sharedValidation.requiredPassword,
   },
 };
 
-const login = {
+const singIn = {
   body: {
     email: sharedValidation.requiredEmail,
     password: sharedValidation.requiredPasswordLog,
@@ -57,8 +57,8 @@ const deleteUser = {
 };
 
 export default {
-  registration,
-  login,
+  singUp,
+  singIn,
   editUser,
   editUserPass,
   deleteUser,
