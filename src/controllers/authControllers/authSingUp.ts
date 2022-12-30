@@ -7,13 +7,12 @@ import db from '../../db';
 import generateToken from '../../utils/generateToken';
 import hashedPassword from '../../utils/hashedPassword';
 import errorsMessage from '../../utils/errorsMessages';
-import successMessage from '../../utils/successMessages';
 import CustomError from '../../utils/customErrors';
 
 type ParamsType = Record<string, never>;
 type BodyType = User;
 type QueryType = Record<string, never>;
-type ResponseType = { message?: string; newUser?: User; token?: string };
+type ResponseType = { message?: string; user?: User; token?: string };
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
@@ -31,13 +30,13 @@ export const singUp: HandlerType = async (req, res, next) => {
     user.email = req.body.email;
     user.password = hashPassword;
     
-    const newUser = await db.user.save(user);
-    delete newUser.password;
+    await db.user.save(user);
+    delete user.password;
     
     const token = generateToken.generateAccessToken(user.id);
 
     res.status(StatusCodes.CREATED)
-      .json({ newUser, token });
+      .json({ user, token });
     } catch (err) {
       next(err);
   }
