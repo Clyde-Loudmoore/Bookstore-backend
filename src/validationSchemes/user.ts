@@ -45,6 +45,7 @@ const editUserPass = {
   body: {
     password: sharedValidation.requiredPassword,
     newPassword: sharedValidation.requiredPassword,
+    confPassword: sharedValidation.requiredPassword
   },
   params: {
     userId: sharedValidation.requiredParamsId,

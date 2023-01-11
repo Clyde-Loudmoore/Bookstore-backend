@@ -32,6 +32,8 @@ type ErrorType = {
 const createValidationMiddleware = (schema: SchemaType) => {
   const validationMiddleware: Handler = async (req, _res, next) => {
     try {
+      console.log();
+
       const errors: Array<{
         path: string;
         message?: string;
