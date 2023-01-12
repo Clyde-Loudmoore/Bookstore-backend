@@ -20,7 +20,7 @@ type BodyType = {
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
-export const editUserPass: HandlerType = async (req, res, next) => {
+export const patchUserPass: HandlerType = async (req, res, next) => {
   try {
     if (req.user.id !== +req.params.userId) {
       throw new CustomError(StatusCodes.FORBIDDEN, errorsMessage.INCORRECT_DATA);

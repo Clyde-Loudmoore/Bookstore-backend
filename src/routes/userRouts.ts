@@ -9,9 +9,9 @@ const routes = express.Router();
 
 routes.use(verifyAuthorization);
 
-routes.patch('/:userId', createValidationMiddleware(user.editUser), userControllers.editUser);
+routes.patch('/:userId', createValidationMiddleware(user.patchUser), userControllers.patchUser);
 
-routes.patch('/:userId/password', createValidationMiddleware(user.editUserPass), userControllers.editUserPass);
+routes.patch('/:userId/password', createValidationMiddleware(user.patchUserPass), userControllers.patchUserPass);
 
 routes.delete('/:userId', createValidationMiddleware(user.deleteUser), userControllers.deleteUser);
 

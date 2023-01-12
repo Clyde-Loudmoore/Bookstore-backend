@@ -31,7 +31,7 @@ const singIn = {
   },
 };
 
-const editUser = {
+const patchUser = {
   body: {
     fullName: sharedValidation.fullName,
     email: sharedValidation.requiredEmail,
@@ -41,7 +41,7 @@ const editUser = {
   },
 };
 
-const editUserPass = {
+const patchUserPass = {
   body: {
     password: sharedValidation.requiredPassword,
     newPassword: sharedValidation.requiredPassword,
@@ -61,7 +61,7 @@ const deleteUser = {
 export default {
   singUp,
   singIn,
-  editUser,
-  editUserPass,
+  patchUser,
+  patchUserPass,
   deleteUser,
 };

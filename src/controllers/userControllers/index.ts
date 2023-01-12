@@ -1,11 +1,11 @@
 import { getUser } from '../authControllers/getUser';
-import { editUser } from './editUser';
-import { editUserPass } from './editUserPass';
+import { patchUser } from './patchUser';
+import { patchUserPass } from './patchUserPass';
 import { deleteUser } from './deleteUser';
 
 export default {
   getUser,
-  editUser,
-  editUserPass,
+  patchUser,
+  patchUserPass,
   deleteUser,
 };
