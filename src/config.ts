@@ -20,6 +20,7 @@ const config = {
     logging: mainConfig.POSTGRES_DB_LOGGING === 'true',
   },
   port: mainConfig.SERVER_PORT,
+  path: mainConfig.PATH,
   currentUrl: mainConfig.CURRENT_URL,
   clientUrl: mainConfig.CLIENT_APP_URL,
   token: {

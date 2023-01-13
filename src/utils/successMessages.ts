@@ -6,4 +6,5 @@ export default {
   DELETED_USER: 'User deleted',
   UPDATE_USER: 'User data updated successfully',
   UPDATE_USER_PASSWORD: 'User password updated successfully',
+  UPDATE_FILE: 'File uploaded',
 };

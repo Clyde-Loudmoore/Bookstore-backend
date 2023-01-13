@@ -9,6 +9,8 @@ const routes = express.Router();
 
 routes.use(verifyAuthorization);
 
+routes.post('/avatar', userControllers.postAvatar);
+
 routes.patch('/:userId', createValidationMiddleware(user.patchUser), userControllers.patchUser);
 
 routes.patch('/:userId/password', createValidationMiddleware(user.patchUserPass), userControllers.patchUserPass);

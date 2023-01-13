@@ -8,6 +8,7 @@ import CustomError from '../utils/customErrors';
 
 const verifyAuthorization = async (req: Request, _res: Response, next: NextFunction) => {
   try {
+
     const token = req.headers.authorization.split(' ')[1];
 
     if (!token) {
@@ -15,7 +16,7 @@ const verifyAuthorization = async (req: Request, _res: Response, next: NextFunct
     }
 
     const payload = generateToken.verifyAcccessToken(token);
-    req.user = await db.user.findOne({ where: { id: payload.id } });
+    req.user = await db.user.createQueryBuilder('user').where('user.id = :id', { id: payload.id }).getOne();
 
     if (!req.user) {
       throw new CustomError(StatusCodes.NOT_FOUND, errorsMessage.USER_NOT_FOUND);

@@ -11,4 +11,6 @@ export default {
   errors_str: '',
   EXTRA_FIELDS: 'Extra fields found',
   USER_ERRORS: 'Please correct the error',
+  FILE_NOT_FOUND: 'File not found',
+  LOADING_ERROR: 'Loading error',
 };
