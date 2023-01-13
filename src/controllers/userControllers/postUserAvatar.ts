@@ -32,24 +32,30 @@ export const postAvatar: HandlerType = async (req, res, next) => {
     const avatarBuffer = Buffer.from(base64, 'base64');
     const path = config.path;
 
-    if (avatarName) {
-      fs.unlink(`${path}/avatars/${avatarName}.${avatarFormat}`, (err) => {
-        if (err) {
-          console.log(err);
-        }
-      })
-    }
-
     fs.writeFile(`${path}/avatars/${avatarName}.${avatarFormat}`, avatarBuffer, (err) => {
       if (err) {
         throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessages.LOADING_ERROR)
       }
     });
 
-    const user = await db.user.createQueryBuilder('user').where('user.id = :id', { id: req.user.id }).getOne();;
-    user.avatar = `${avatarName}.${avatarFormat}`;
+    const doubleAvatar = req.user.avatar;
+    console.log(doubleAvatar);
 
-    await db.user.save(user);
+
+    if (doubleAvatar) {
+      fs.unlink(`public/avatars/${doubleAvatar.slice(37)}`, (err) => {
+        if (err) {
+          console.log(err);
+        }
+      })
+    }
+
+    const updatedUser = req.user;
+
+    updatedUser.avatar = `${avatarName}.${avatarFormat}`;
+    await db.user.save(updatedUser);
+
+    const user = await db.user.createQueryBuilder('user').where('user.id = :id', { id: req.user.id }).getOne();
 
     res.status(StatusCodes.OK)
       .json({ message: successMessages.UPDATE_FILE, updatedUser: user });
