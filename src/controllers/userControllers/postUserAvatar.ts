@@ -39,8 +39,6 @@ export const postAvatar: HandlerType = async (req, res, next) => {
     });
 
     const doubleAvatar = req.user.avatar;
-    console.log(doubleAvatar);
-
 
     if (doubleAvatar) {
       fs.unlink(`public/avatars/${doubleAvatar.slice(37)}`, (err) => {

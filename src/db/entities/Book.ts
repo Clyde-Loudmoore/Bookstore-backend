@@ -1,13 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, AfterLoad } from 'typeorm';
+
+import { addUrlBookCover } from '../../utils/addUrl';
 
 @Entity()
 class Book {
   @PrimaryGeneratedColumn()
-  id: number;
+  id?: number;
 
   @Column({ type: 'varchar', nullable: true })
-  avatar: string;
-
+  bookCover: string;
 
   @Column({ type: 'varchar', nullable: true })
   title: string;
@@ -16,19 +17,24 @@ class Book {
   author: string;
 
   @Column({ type: 'varchar', nullable: false })
-  description: string;
-
-  @Column({ type: 'float', nullable: false })
-  rating: number;
-
-  @Column({ type: 'boolean', nullable: false })
-  paperback: boolean;
-
-  @Column({ type: 'boolean', nullable: false })
-  hardcover: boolean;
+  genre: string;
 
   @Column({ type: 'varchar', nullable: false })
-  comments: string;
+  description: string;
+
+  @Column({ type: 'float', nullable: true })
+  rating?: number;
+
+  @Column({ type: 'varchar', nullable: false })
+  binding: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  comments?: string;
+
+  @AfterLoad()
+  setUrlBookCover?() {
+    this.bookCover = addUrlBookCover(this.bookCover);
+  }
 
 }
 

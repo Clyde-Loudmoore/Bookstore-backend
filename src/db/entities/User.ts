@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, AfterLoad } from 'typeorm';
+
 import { addUrlAvatar } from '../../utils/addUrl';
 
 @Entity()

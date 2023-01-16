@@ -1,9 +1,23 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class sync1673858357089 implements MigrationInterface {
-    name = 'sync1673858357089'
+export class sync1673875572162 implements MigrationInterface {
+    name = 'sync1673875572162'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`
+            CREATE TABLE "book" (
+                "id" SERIAL NOT NULL,
+                "bookCover" character varying,
+                "title" character varying,
+                "author" character varying NOT NULL,
+                "genre" character varying NOT NULL,
+                "description" character varying NOT NULL,
+                "rating" double precision,
+                "binding" character varying NOT NULL,
+                "comments" character varying,
+                CONSTRAINT "PK_a3afef72ec8f80e6e5c310b28a4" PRIMARY KEY ("id")
+            )
+        `);
         await queryRunner.query(`
             CREATE TABLE "user" (
                 "id" SERIAL NOT NULL,
@@ -15,28 +29,14 @@ export class sync1673858357089 implements MigrationInterface {
                 CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")
             )
         `);
-        await queryRunner.query(`
-            CREATE TABLE "book" (
-                "id" SERIAL NOT NULL,
-                "avatar" character varying,
-                "title" character varying,
-                "author" character varying NOT NULL,
-                "description" character varying NOT NULL,
-                "rating" double precision NOT NULL,
-                "paperback" boolean NOT NULL,
-                "hardcover" boolean NOT NULL,
-                "comments" character varying NOT NULL,
-                CONSTRAINT "PK_a3afef72ec8f80e6e5c310b28a4" PRIMARY KEY ("id")
-            )
-        `);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            DROP TABLE "book"
+            DROP TABLE "user"
         `);
         await queryRunner.query(`
-            DROP TABLE "user"
+            DROP TABLE "book"
         `);
     }
 
