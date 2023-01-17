@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, AfterLoad } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, AfterLoad, ManyToMany, JoinTable } from 'typeorm';
 
+import Genre from './Genre';
 import { addUrlBookCover } from '../../utils/addUrl';
 
 @Entity()
@@ -17,19 +18,20 @@ class Book {
   author: string;
 
   @Column({ type: 'varchar', nullable: false })
-  genre: string;
-
-  @Column({ type: 'varchar', nullable: false })
   description: string;
-
-  @Column({ type: 'float', nullable: true })
-  rating?: number;
 
   @Column({ type: 'varchar', nullable: false })
   binding: string;
 
   @Column({ type: 'varchar', nullable: true })
   comments?: string;
+
+  @Column({ type: 'float', nullable: false })
+  price: number;
+
+  @ManyToMany(() => Genre)
+  @JoinTable()
+  genre: Genre[];
 
   @AfterLoad()
   setUrlBookCover?() {
