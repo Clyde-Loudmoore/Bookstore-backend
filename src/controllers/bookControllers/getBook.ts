@@ -7,13 +7,15 @@ import Book from '../../db/entities/Book';
 type BodyType = Record<string, never>;
 type ParamsType = Record<string, never>;
 type QueryType = Record<string, never>;
-type ResponseType = { books: Book[] };
-type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
+type ResponseType = { book: Book };
+type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>
 
-export const getBooks: HandlerType = async (_req, res, next) => {
+export const getBook: HandlerType = async (req, res, next) => {
   try {
-    const books = await db.book.find();
-    res.status(StatusCodes.OK).json({ books });
+
+    const book = await db.book.findOne({where: { id: req.params.id }});
+    res.status(StatusCodes.OK).json({ book });
+
   } catch (err) {
     next(err);
   }

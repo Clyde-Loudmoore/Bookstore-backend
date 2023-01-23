@@ -1,20 +1,19 @@
-/* eslint-disable no-console */
 import type { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 
-import User from '../../db/entities/User';
+import db from '../../db';
+import Book from '../../db/entities/Book';
 
 type BodyType = Record<string, never>;
 type ParamsType = Record<string, never>;
 type QueryType = Record<string, never>;
-type ResponseType = { user: User };
+type ResponseType = { books: Book[] };
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
-export const getUser: HandlerType = async (req, res, next) => {
+export const getAllBooks: HandlerType = async (_req, res, next) => {
   try {
-
-    res.status(StatusCodes.OK).json({ user: req.user });
-
+    const books = await db.book.find();
+    res.status(StatusCodes.OK).json({ books });
   } catch (err) {
     next(err);
   }

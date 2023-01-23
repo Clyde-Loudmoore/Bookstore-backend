@@ -1,3 +1,4 @@
-import { getBooks } from "./getBooks";
+import { getAllBooks } from './getAllBooks';
+import { getBook } from './getBook';
 
-export default { getBooks };
+export default { getAllBooks, getBook };
