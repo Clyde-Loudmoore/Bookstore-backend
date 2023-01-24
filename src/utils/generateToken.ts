@@ -16,7 +16,7 @@ const verifyAcccessToken = (token: string) => {
     const payload = jwt.verify(token, config.token.secretKey) as { id: number };
     return payload;
   } catch {
-    throw new CustomError(StatusCodes.FORBIDDEN, errorsMessages.NOT_AUTHORIZED);
+    throw new CustomError(StatusCodes.UNAUTHORIZED, errorsMessages.NOT_AUTHORIZED);
   }
 };
 

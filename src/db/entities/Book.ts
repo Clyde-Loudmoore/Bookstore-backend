@@ -6,7 +6,7 @@ import { addUrlBookCover } from '../../utils/addUrl';
 @Entity()
 class Book {
   @PrimaryGeneratedColumn()
-  id?: number;
+  id: number;
 
   @Column({ type: 'varchar', nullable: true })
   bookCover: string;

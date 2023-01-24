@@ -13,7 +13,8 @@ type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>
 export const getBook: HandlerType = async (req, res, next) => {
   try {
 
-    const book = await db.book.findOne({where: { id: req.params.id }});
+    const book = await db.book.findOne({where: { id: req.params.bookId }});
+    
     res.status(StatusCodes.OK).json({ book });
 
   } catch (err) {
