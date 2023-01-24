@@ -75,8 +75,8 @@ const createValidationMiddleware = (schema: SchemaType) => {
           err.inner.forEach((item) => {
             const [path, key] = item.path.split('.');
             errors.push({
-              key,
               path,
+              key,
               message: item.errors.join(),
             });
           });

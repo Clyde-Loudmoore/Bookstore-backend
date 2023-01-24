@@ -20,7 +20,6 @@ const singUp = {
   body: {
     email: sharedValidation.requiredEmail,
     password: sharedValidation.requiredPassword,
-    confPassword: sharedValidation.requiredPassword,
   },
 };
 

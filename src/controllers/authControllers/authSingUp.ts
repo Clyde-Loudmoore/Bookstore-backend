@@ -19,25 +19,25 @@ type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>
 export const singUp: HandlerType = async (req, res, next) => {
   try {
     const exitingUser = await db.user.findOne({ where: { email: req.body.email } });
-    
+
     if (exitingUser) {
-      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED);
+      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED, { path: 'email'} );
     }
-    
+
     const hashPassword = await hashedPassword.hashedPass(req.body.password);
-    
+
     const user = new User();
     user.email = req.body.email;
     user.password = hashPassword;
-    
+
     await db.user.save(user);
     delete user.password;
-    
+
     const token = generateToken.generateAccessToken(user.id);
 
     res.status(StatusCodes.CREATED)
       .json({ user, token });
-    } catch (err) {
-      next(err);
+  } catch (err) {
+    next(err);
   }
 };

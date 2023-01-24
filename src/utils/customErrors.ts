@@ -1,3 +1,7 @@
+// type PayloadType = {
+//   errors: {path: string},
+// };
+
 class CustomError extends Error {
   status: number;
 

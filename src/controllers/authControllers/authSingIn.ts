@@ -34,12 +34,12 @@ export const singIn: HandlerType = async (req, res, next) => {
       .getOne();
 
     if (!user) {
-      throw new CustomError(StatusCodes.NOT_FOUND, `${errorsMessage.USER_NOT_FOUND}: ${errorsMessage.INCORRECT_DATA}`);
+      throw new CustomError(StatusCodes.NOT_FOUND, `${errorsMessage.USER_NOT_FOUND}: ${errorsMessage.INCORRECT_DATA}`, { path: 'email'});
     }
     const matchPassword = await hashedPassword.comparePass(password, user.password);
 
     if (!matchPassword) {
-      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.WRONG_PASS);
+      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.WRONG_PASS, { path: 'password'});
     }
 
     const token = generateToken.generateAccessToken(user.id);
