@@ -29,8 +29,8 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
   try {    
     const { genre, search, sorting } = req.query;
     // const page = Number(req.query.page);
-    // const minPrice = req.query.minPrice;
-    // const maxPrice = req.query.maxPrice;
+    const minPrice = req.query.minPrice;
+    const maxPrice = req.query.maxPrice;
     // const numberPerPage = 10;
     // let sortBy: string;
     
@@ -46,8 +46,8 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
     //   sortBy = sorting;
     // };
 
-    const filterBooks = db.book.createQueryBuilder('book');
-    // .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
+    const filterBooks = db.book.createQueryBuilder('book')
+    .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
     //   .orderBy(`book.${sortBy}`, 'ASC');
       
       if (genre.length) {
@@ -67,7 +67,6 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
     
     return res.status(StatusCodes.OK).json({ books });
   } catch (err) {
-    console.log('ERROR!');
     next(err);
   }
 };
