@@ -6,6 +6,7 @@ const routes = express.Router();
 
 routes.get('/genres', bookControllers.getBookGenres);
 routes.get('/all-books', bookControllers.getAllBooks);
+routes.get('/filtred-books', bookControllers.getFiltredBooks);
 routes.get('/:bookId', bookControllers.getBook);
 
 export default routes;
