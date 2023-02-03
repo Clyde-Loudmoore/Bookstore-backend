@@ -32,32 +32,32 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
     // const numberPerPage = 10;
-    // let sortBy: string;
+    let sortBy: string;
     
-    // if (sorting === 'price') {
-    //   sortBy = 'price';
-    // } else if (sorting === 'name') {
-    //   sortBy = 'title';
-    // } else if (sorting === 'author') {
-    //   sortBy = 'author';
-    // } else if (sorting === 'date of issue') {
-    //   sortBy = 'dateOfIssue';
-    // } else {
-    //   sortBy = sorting;
-    // };
+    if (sorting === 'Price') {
+      sortBy = 'price';
+    } else if (sorting === 'Name') {
+      sortBy = 'title';
+    } else if (sorting === 'Author') {
+      sortBy = 'author';
+    } else if (sorting === 'Date of issue') {
+      sortBy = 'dateOfIssue';
+    } else {
+      sortBy = sorting;
+    };
 
     const filterBooks = db.book.createQueryBuilder('book')
     .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
-    //   .orderBy(`book.${sortBy}`, 'ASC');
+      .orderBy(`book.${sortBy}`, 'ASC');
       
       if (genre.length) {
         const genreArr = genre.split(',');
         filterBooks.innerJoinAndSelect('book.genre', 'genre', 'genre.genreName IN (:...genreArr)', { genreArr });
       }
       
-      // if (search) {
-      //   filterBooks.andWhere('book.title ILIKE :search OR book.author ILIKE :search', { search: `%${search}%` });
-      // }
+      if (search) {
+        filterBooks.andWhere('book.title ILIKE :search OR book.author ILIKE :search', { search: `%${search}%` });
+      }
       
     // const counter = (await filterBooks.getMany()).length;
     const books = await filterBooks
