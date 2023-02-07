@@ -13,4 +13,5 @@ export default {
   USER_ERRORS: 'Please correct the error',
   FILE_NOT_FOUND: 'File not found',
   LOADING_ERROR: 'Loading error',
+  INVALID_CREDENTIALS: 'Invalid credentials',
 };
