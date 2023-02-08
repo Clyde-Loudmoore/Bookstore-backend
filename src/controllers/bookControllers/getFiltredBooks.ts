@@ -8,32 +8,31 @@ type ParamsType = Record<string, never>;
 
 type ResponseType = {
   books: Book[];
-  // counter: number;
-  // numberPerPage: number;
+  maxPages: number;
 };
 
 type BodyType = Record<string, never>;
 
 type QueryType = {
-  genre?: string;
-  minPrice?: string;
-  maxPrice?: string;
-  sorting?: string;
-  page?: string;
-  search?: string;
+  genre: string;
+  minPrice: string;
+  maxPrice: string;
+  sorting: string;
+  page: string;
+  search: string;
 };
 
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
 export const getFiltredBooks: HandlerType = async (req, res, next) => {
-  try {    
+  try {
     const { genre, search, sorting } = req.query;
-    // const page = Number(req.query.page);
+    const page = Number(req.query.page);
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
-    // const numberPerPage = 10;
+    const numberPerPage = 12;
     let sortBy: string;
-    
+
     if (sorting === 'Price') {
       sortBy = 'price';
     } else if (sorting === 'Name') {
@@ -47,25 +46,30 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
     };
 
     const filterBooks = db.book.createQueryBuilder('book')
-    .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
-      .orderBy(`book.${sortBy}`, 'ASC');
-      
-      if (genre.length) {
-        const genreArr = genre.split(',');
-        filterBooks.innerJoinAndSelect('book.genre', 'genre', 'genre.genreName IN (:...genreArr)', { genreArr });
-      }
-      
-      if (search) {
-        filterBooks.andWhere('book.title ILIKE :search OR book.author ILIKE :search', { search: `%${search}%` });
-      }
-      
-    // const counter = (await filterBooks.getMany()).length;
-    const books = await filterBooks
-    // .take(numberPerPage)
-    // .skip((page - 1) * numberPerPage)
-    .getMany();
+      .where('book.price BETWEEN :minPrice AND :maxPrice', { minPrice, maxPrice })
+      .orderBy(`book.${sortBy}`, 'ASC')
+      .take(numberPerPage)
+      .skip((page - 1) * numberPerPage);
+
+    if (genre.length) {
+      const genreArr = genre.split(',');
+      filterBooks.innerJoinAndSelect('book.genre', 'genre', 'genre.genreName IN (:...genreArr)', { genreArr });
+    }
+
+    if (search) {
+      filterBooks.andWhere('book.title ILIKE :search OR book.author ILIKE :search', { search: `%${search}%` });
+    }
+
+    const [books, count] = await filterBooks.getManyAndCount();
+
+    let maxPages = Math.ceil(count / books.length);
+    if (maxPages > 3) {
+      maxPages = 3;
+    }
     
-    return res.status(StatusCodes.OK).json({ books });
+
+
+    return res.status(StatusCodes.OK).json({ books, maxPages });
   } catch (err) {
     next(err);
   }
