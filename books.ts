@@ -1,7 +1,6 @@
 import connectToDb from './src/db/connectToDb';
 import db from './src/db';
 import Book from './src/db/entities/Book';
-import BookRating from './src/db/entities/BookRating';
 import Genre from './src/db/entities/Genre';
 
 const books = [

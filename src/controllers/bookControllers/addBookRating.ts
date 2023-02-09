@@ -9,7 +9,7 @@ import BookRating from '../../db/entities/BookRating';
 type BodyType = Record<string, never>;
 type ParamsType = Record<string, never>;
 type QueryType = Record<string, never>;
-type ResponseType = { ratingBook: BookRating };
+type ResponseType = { bookRating: BookRating };
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
 
@@ -17,20 +17,20 @@ export const addBookRating: HandlerType = async (req, res, next) => {
   try {
     const { bookId, userId, rating } = req.body;
 
-    const ratingBook = new BookRating();
+    const bookRating = new BookRating();
 
-    ratingBook.bookId = bookId;
-    ratingBook.userId = userId;
-    ratingBook.rating = rating;
+    bookRating.bookId = bookId;
+    bookRating.userId = userId;
+    bookRating.rating = rating;
 
-    if (!ratingBook) {
+    if (!bookRating) {
       throw new CustomError(
         StatusCodes.NOT_IMPLEMENTED,
         errorsMessages.INVALID_CREDENTIALS,
       );
     }
 
-    await db.bookRating.save(ratingBook);
+    await db.bookRating.save(bookRating);
 
     return res.status(StatusCodes.OK);
   } catch (err) {
