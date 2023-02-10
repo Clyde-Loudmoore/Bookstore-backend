@@ -30,13 +30,12 @@ export const deleteCopyBook: HandlerType = async (req, res, next) => {
       .getOne();
 
     const num = cart.quantityOfGoods;
-    cart.quantityOfGoods = +num - 1;
-
-    if (cart.quantityOfGoods === 0) {
-      await db.cart.remove(cart);
-    } else {
-      await db.cart.save(cart);
+    if (num > 1) {
+      cart.quantityOfGoods = +num - 1;
     }
+
+    await db.cart.save(cart);
+
 
     const userCart = await db.cart
       .createQueryBuilder('cart')

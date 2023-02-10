@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import express from 'express';
 import verifyAuthorization from '../middlewares/verifyToken';
 

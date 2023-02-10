@@ -17,12 +17,6 @@ export const addCopyBook: HandlerType = async (req, res, next) => {
   try {
 
     const bookId = req.params.bookId;
-    console.log(bookId);
-    
-    // const userId = req.user.id;
-    const userId = req.params.userId
-    console.log(userId);
-    
 
     if (!bookId) {
       throw new CustomError(
@@ -43,7 +37,7 @@ export const addCopyBook: HandlerType = async (req, res, next) => {
 
     const userCart = await db.cart
       .createQueryBuilder('cart')
-      .where('cart.userId = :userId', { userId })
+      .where('cart.userId = :userId', { userId: req.user.id })
       .leftJoinAndSelect('cart.book', 'book')
       .getMany();
 
