@@ -10,6 +10,6 @@ const routes = express.Router();
 routes.use('/user', userRoutes);
 routes.use('/auth', authRoutes);
 routes.use('/books', bookRoutes);
-routes.use('./cart', cartRoutes);
+routes.use('/cart', cartRoutes);
 
 export default routes;

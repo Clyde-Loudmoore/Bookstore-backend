@@ -10,13 +10,19 @@ import db from '../../db';
 type BodyType = Record<string, never>;
 type ParamsType = Record<string, never>;
 type QueryType = Record<string, never>;
-type ResponseType = { userCart: Cart[] };
+type ResponseType = { books: Cart[] };
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
 export const addCopyBook: HandlerType = async (req, res, next) => {
   try {
+
     const bookId = req.params.bookId;
-    const userId = req.user.id;
+    console.log(bookId);
+    
+    // const userId = req.user.id;
+    const userId = req.params.userId
+    console.log(userId);
+    
 
     if (!bookId) {
       throw new CustomError(
@@ -41,8 +47,10 @@ export const addCopyBook: HandlerType = async (req, res, next) => {
       .leftJoinAndSelect('cart.book', 'book')
       .getMany();
 
-    return res.status(StatusCodes.OK).json({ userCart });
+    return res.status(StatusCodes.OK).json({ books: userCart });
   } catch (err) {
+    console.log(456);
+
     next(err);
   }
 };

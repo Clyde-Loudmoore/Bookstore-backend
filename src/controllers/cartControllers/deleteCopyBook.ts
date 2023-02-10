@@ -10,7 +10,7 @@ import db from '../../db';
 type BodyType = Record<string, never>;
 type ParamsType = Record<string, never>;
 type QueryType = Record<string, never>;
-type ResponseType = { userCart: Cart[] };
+type ResponseType = { books: Cart[] };
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
 export const deleteCopyBook: HandlerType = async (req, res, next) => {
@@ -44,7 +44,7 @@ export const deleteCopyBook: HandlerType = async (req, res, next) => {
       .leftJoinAndSelect('cart.book', 'book')
       .getMany();
 
-    res.status(StatusCodes.OK).json({ userCart });
+    res.status(StatusCodes.OK).json({ books: userCart });
   } catch (err) {
     next(err);
   }
