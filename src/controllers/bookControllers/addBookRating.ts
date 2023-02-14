@@ -12,7 +12,6 @@ type QueryType = Record<string, never>;
 type ResponseType = { bookRating: BookRating };
 type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>;
 
-
 export const addBookRating: HandlerType = async (req, res, next) => {
   try {
     const { bookId, userId, rating } = req.body;

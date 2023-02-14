@@ -24,7 +24,7 @@ class UserComment {
   @Column({ type: 'varchar', nullable: false })
   userId: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'date' })
   createdTime: Date;
 
   @ManyToOne(() => User, (user) => user.id)
