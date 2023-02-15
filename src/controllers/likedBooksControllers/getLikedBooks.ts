@@ -14,7 +14,7 @@ type HandlerType = RequestHandler<ParamsType, ResponseType, BodyType, QueryType>
 
 export const getLikedBooks: HandlerType = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const userId = req.query.userId;
 
     if (!userId) {
       throw new CustomError(

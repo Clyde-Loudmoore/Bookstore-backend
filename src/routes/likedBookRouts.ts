@@ -7,7 +7,7 @@ const routes = express.Router();
 
 routes.use(verifyAuthorization);
 
-routes.get('/books', likedBooksControllers.getLikedBooks);
+routes.get('/:userId', likedBooksControllers.getLikedBooks);
 
 routes.post('/add/:bookId', likedBooksControllers.addLikedBook);
 
