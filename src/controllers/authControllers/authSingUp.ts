@@ -21,7 +21,7 @@ export const singUp: HandlerType = async (req, res, next) => {
     const exitingUser = await db.user.findOne({ where: { email: req.body.email } });
 
     if (exitingUser) {
-      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED, { path: 'email'} );
+      throw new CustomError(StatusCodes.BAD_REQUEST, errorsMessage.EMAIL_USED, { path: 'email' });
     }
 
     const hashPassword = await hashedPassword.hashedPass(req.body.password);
@@ -29,6 +29,7 @@ export const singUp: HandlerType = async (req, res, next) => {
     const user = new User();
     user.email = req.body.email;
     user.password = hashPassword;
+    user.fullName = '';
 
     await db.user.save(user);
     delete user.password;

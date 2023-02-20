@@ -66,8 +66,6 @@ export const getFiltredBooks: HandlerType = async (req, res, next) => {
     if (maxPages > 3) {
       maxPages = 3;
     }
-    
-
 
     return res.status(StatusCodes.OK).json({ books, maxPages });
   } catch (err) {
